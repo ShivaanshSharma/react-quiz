@@ -1,27 +1,20 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
+import { ProgressBar } from './ProgressBar';
 
-export const Question = ({questionData}) => {
+export const Question = ({questionData, onAnswer, onTimeout}) => {
 
-    const [remainTime, setRemainTime] = useState(10000);
-
-    if (remainTime <= 0) {
-        setRemainTime(10000);
+    const optionClickHandler = (e) => {
+        onAnswer(e);
     }
 
-    useEffect(() => {
-        const interval = setInterval(() => { setRemainTime(prev => prev - 10) }, 10);
-
-        return () => {
-            clearInterval(interval);
-        }
-    }, [])
+    const shuffledArray = [...questionData.options].sort(() => Math.random() - 0.5)
 
   return (
     <div className='flex flex-col gap-6'>
-        <progress id='progress' max={10000} value={remainTime}/>
-        <span className='text-xl font-medium'>{questionData?.question}</span>
+        <ProgressBar time={onTimeout} />
+        <span className='text-xl font-medium'>{questionData.question}</span>
         <span className='gap-3 flex flex-col'>
-            {questionData?.options.map((o) => <p className='border-1 py-3 rounded-xl hover:bg-blue-950 duration-150 hover:text-white cursor-pointer'>
+            {shuffledArray.map((o) => <p onClick={(e) => optionClickHandler(e)} className='border-1 py-3 rounded-xl hover:bg-blue-950 duration-150 hover:text-white cursor-pointer'>
                 {o}
             </p>)}
         </span>
