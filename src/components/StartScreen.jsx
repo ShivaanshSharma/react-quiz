@@ -8,7 +8,7 @@ function StartScreen ({onStatus}) {
     }
 
     return (
-        <div className="w-8/12 mx-auto bg-white text-center p-6 rounded-2xl flex flex-col gap-3">
+        <div className="w-fit max-w-11/12 lg:max-w-6/12 mx-auto bg-white text-center p-6 rounded-2xl flex flex-col gap-3">
             <span className="font-bold text-3xl">React Quiz!</span>
             <p className="text-left font-light">
                 <b>Quiz Rules:</b> <br />

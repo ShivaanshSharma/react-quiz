@@ -40,10 +40,16 @@ export const Quiz = ({quizData}) => {
         setQuestion(prev => prev + 1);
     }
 
+    const restartHandler = () => {
+        finish = false;
+        setQuestion(0);
+        setCorrect(0);
+    }
+
   return (
-    <div className="w-8/12 mx-auto bg-white text-center p-6 rounded-2xl flex flex-col gap-3">
+    <div className="w-fit max-w-11/12 min-w-6/12 mx-auto bg-white text-center p-6 rounded-2xl flex flex-col gap-3">
         { !finish && <Question key={question} questionData={quizData[question]} onAnswer={answerHandler} onTimeout={timeout} /> }
-        { finish && <Result score={correct} /> }
+        { finish && <Result score={correct} onRestart={restartHandler} /> }
     </div>
   )
 }
